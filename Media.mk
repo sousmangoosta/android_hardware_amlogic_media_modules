@@ -89,9 +89,9 @@ $(shell mkdir $(MODS_OUT) -p)
 endif
 
 ifeq ($(KERNEL_A32_SUPPORT), true)
-TOOLS := /opt/gcc-linaro-6.3.1-2017.02-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
+TOOLS := /opt/toolchains/gcc-linaro-6.3.1-2017.02-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
 else
-TOOLS := /opt/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
+TOOLS := /opt/toolchains/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
 endif
 
 modules:
