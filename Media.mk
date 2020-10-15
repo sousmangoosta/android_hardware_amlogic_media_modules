@@ -61,10 +61,10 @@ $(shell cp $(MEDIA_DRIVERS)/* $(MEDIA_MODULES) -rfa)
 
 define media-modules
 	PATH=$$(cd ./$(TARGET_HOST_TOOL_PATH); pwd):$$PATH \
-		$(MAKE) -C $(KDIR) M=$(MEDIA_MODULES) ARCH=$(KERNEL_ARCH) \
+		PATH=/bin:$$PATH $(MAKE) -C $(KDIR) M=$(MEDIA_MODULES) ARCH=$(KERNEL_ARCH) \
 		CROSS_COMPILE=$(PREFIX_CROSS_COMPILE) $(CONFIGS) \
 		EXTRA_CFLAGS+=-I$(INCLUDE) modules; \
-		find $(MEDIA_MODULES) -name "*.ko" | PATH=$$(cd ./$(TARGET_HOST_TOOL_PATH); pwd):$$PATH xargs -i cp {} $(MODS_OUT)
+		find $(MEDIA_MODULES) -name "*.ko" | PATH=/bin:$$(cd ./$(TARGET_HOST_TOOL_PATH); pwd):$$PATH xargs -i cp {} $(MODS_OUT)
 endef
 
 else
@@ -97,7 +97,7 @@ endif
 
 modules:
 	CCACHE_NODIRECT="true" PATH=$$(cd ./$(TARGET_HOST_TOOL_PATH); pwd):$$PATH \
-		$(MAKE) -C $(KDIR) M=$(MEDIA_DRIVERS) ARCH=$(KERNEL_ARCH) \
+		PATH=/bin:$$PATH $(MAKE) -C $(KDIR) M=$(MEDIA_DRIVERS) ARCH=$(KERNEL_ARCH) \
 		CROSS_COMPILE=$(TOOLS) $(CONFIGS) \
 		EXTRA_CFLAGS+=-I$(INCLUDE) -j64
 
@@ -110,6 +110,6 @@ all: modules copy-modules
 
 clean:
 	PATH=$$(cd ./$(TARGET_HOST_TOOL_PATH); pwd):$$PATH \
-		$(MAKE) -C $(KDIR) M=$(MEDIA_DRIVERS) ARCH=$(KERNEL_ARCH) clean
+		PATH=/bin:$$PATH $(MAKE) -C $(KDIR) M=$(MEDIA_DRIVERS) ARCH=$(KERNEL_ARCH) clean
 
 endif
